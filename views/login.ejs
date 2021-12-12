@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="text/css" href="style/login.css" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+  <% if( alert != 'null'){ %>
+
+   
+      <div class="alert alert-danger " role="alert">
+        <center>
+          <b><%= alert %></b> 
+
+        </center>
+      </div>
+    
+
+    <% }%>
+  
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="padding:20px;">
+        
+          <div class="fadeIn first">
+            <i class="fa fa-user-circle" style="font-size:78px;"></i>
+          </div>
+      
+          <!-- Login Form -->
+          <form action="/login" method="post">
+            <input type="email" required id="login" class="fadeIn second" name="email" placeholder="Email">
+            <input type="password" required id="password" class="fadeIn third" name="password" placeholder="password">
+            <br>
+            <br>
+
+            <input type="submit" class="fadeIn fourth" value="Log In">
+          </form>
+      
+        
+      
+        </div>
+      </div>
+     
+      
+</body>
+</html>

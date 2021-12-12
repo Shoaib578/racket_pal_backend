@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+
+    <title>Admin-Home</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <%- include('./header'); %>
+
+        <%- include('./sidebar'); %>
+
+
+        <% if(message.length>0){ %>
+
+   
+            <div class="alert alert-danger " role="alert">
+              <center>
+                <b><%= message %></b> 
+      
+              </center>
+            </div>
+          
+      
+          <% }%>
+            <br>
+            
+
+          <button type="button" class="btn btn-primary float-right mr-4 " data-toggle="modal" data-target="#exampleModal">
+            Add+
+          </button>
+
+          <br>
+          <br>
+          <br>
+          <br>
+        <center>
+          <div class="col-lg-10 ml-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">All Clubs</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+        <table class="table" >
+            <thead>
+              <tr>
+                
+                <th scope="col">Club Name</th>
+                <th scope="col">Praying Room</th>
+                <th scope="col">Speciality</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
+                <th scope="col">Shower Rooms</th>
+                <th scope="col">Number of Courts</th>
+                <th scope="col">Capacity Parking Areas</th>
+                <th scope="col">Sports Equipment Rental Service</th>
+                <th scope="col">Description</th>
+                <th scope="col">Opening time</th>
+                <th scope="col">Closing time</th>
+                <th scope="col">Snak Drink</th>
+                <th scope="col">Buisiness permit document</th>
+                
+               
+                <th scope="col">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <% if(clubs.length>0){ %>
+                <% for (var i = 0; i < clubs.length; i++) { %>
+                  
+                    <tr>
+                        
+                        <td><%= clubs[i].club_name %></td>
+                        
+                        <% if(clubs[i].praying_room == 0){ %>
+                        <td>No</td>
+                        <% }else{ %>
+                            <td>Yes</td>
+
+                         <% } %>
+
+                        
+                            <% clubs[i].speciality.forEach(function(sp){ %>
+                             <td><%= sp.name %></td>
+
+                            <%})%>
+                       
+                            <td><%= clubs[i].latitude %></td>
+                            <td><%= clubs[i].longitude %></td>
+                            <td><%= clubs[i].shower_rooms %></td>
+                            <td><%= clubs[i].number_of_courts %></td>
+                            <td><%= clubs[i].capacity_parking_areas %></td>
+
+                            <% if(clubs[i].sports_quipment_rental_service == 0){ %>
+                              <td>No</td>
+                              <% }else{ %>
+                                  <td>Yes</td>
+      
+                               <% } %>
+                            
+                            <td><%= clubs[i].description %></td>
+                            <td><%= clubs[i].opening_time %></td>
+                            <td><%= clubs[i].closing_time %></td>
+                           
+                        
+                            <% if(clubs[i].snak_drink == 0){ %>
+                              <td>No</td>
+                              <% }else{ %>
+                                  <td>Yes</td>
+      
+                               <% } %>
+
+                               
+
+                            <td>
+                              <embed src="http://localhost:5000/uploads/<%= clubs[i].buisiness_permit_document %>" width="80px" height="80px" />
+                             </td>
+                        
+                            <td>
+                              <a href="/clubs/delete_club/<%= clubs[i]._id %>" class="btn btn-danger">Delete</a>
+                          </td>
+                        
+                      </tr>
+                     
+               
+                <% } %>
+                <% } %> 
+              
+            </tbody>
+          </table>
+          </div>
+                </div>
+              </div>
+            </div>
+
+        </center>
+
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Club</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/clubs/add_club" method="post" enctype="multipart/form-data">
+                
+              <input required type="text" required  class="form-control" name="club_name" placeholder="Club Name">
+              
+              <br>
+
+                <select name="speciality" class="form-control">
+                  <option >Select Speciality</option>
+                   
+                <% for (var i = 0; i < specialities.length; i++) { %>
+
+                    <option value="<%= specialities[i]._id %>"><%= specialities[i].name %></option>
+                <% }%>
+                </select>
+
+
+            <br>
+              <p>Location</p>
+            
+            <input required type="number" step="0.01" required  class="form-control" name="longitude" placeholder="longitude">
+            <br>
+
+
+            <input required type="number" step="0.01" required  class="form-control" name="latitude" placeholder="latitude">
+            <br>
+            <p>business permit document</p>
+            <input required type="file" accept="application/pdf" required  class="form-control" name="business_permit_document" placeholder="business permit document">
+            
+            <br>
+
+            <input required type="number" required  class="form-control" name="number_of_courts" placeholder="number of courts">
+            
+            <br>
+
+            <input required type="number" required  class="form-control" name="shower_rooms" placeholder="Shower Rooms">
+
+            <br>
+
+            <select required name="praying_room" class="form-control">
+                <option selected>Do you Have Praying Room?</option>
+
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <br>
+
+            <input required type="number" required  class="form-control" name="capacity_of_parking_areas" placeholder="capacity of parking areas">
+
+            <br>
+
+            <select required name="snak_drink" class="form-control">
+                <option selected>Snak Drink</option>
+
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <br>
+
+            <select required name="sports_equipment_rental_service" class="form-control">
+                <option selected>Do you have sports equipment rental service?</option>
+
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <br>
+
+            <textarea name="description" class="form-control" required placeholder="Description" cols="30" rows="10">Description</textarea>
+            <br>
+            <p>Opening Time</p>
+
+            <input type="time" name="opening_time" placeholder="Opening Time" class="form-control">
+            <br>
+            <p>Closing Time</p>
+
+            <input type="time" name="closing_time" placeholder="Closing Time" class="form-control">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="js/demo.js"></script>  
+</body>
+</html>

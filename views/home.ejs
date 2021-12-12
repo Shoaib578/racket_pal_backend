@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  
+    <title>Admin-Home</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <%- include('./header'); %>
+
+        <%- include('./sidebar'); %>
+
+
+        <% if(message.length>0){ %>
+
+   
+            <div class="alert alert-danger " role="alert">
+              <center>
+                <b><%= message %></b> 
+      
+              </center>
+            </div>
+          
+      
+          <% }%>
+            <br>
+            
+
+          <button type="button" class="btn btn-primary float-right mr-4 " data-toggle="modal" data-target="#exampleModal">
+            Add+
+          </button>
+          <br>
+          <br>
+          <br>
+
+        <center>
+          <div class="col-lg-10 ml-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">All users</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+        <table class="table" >
+            <thead>
+              <tr>
+                
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">location</th>
+                <th scope="col">Admin</th>
+                <th scope="col">sports interest</th>
+                <th scope="col">player skill</th>
+                <th scope="col">gender</th>
+                <th scope="col">age</th>
+                <th scope="col">is_club</th>
+                <th scope="col">is_coach</th>
+                <th scope="col">is_player</th>
+                <th scope="col">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+                <% if(users.length>0){ %>
+                    <% for (var i = 0; i < users.length; i++) { %>
+                        <% if(my_id != users[i]._id){ %>
+                        <tr>
+                          
+                            <td><%= users[i].person.firstname %></td>
+                            <td><%= users[i].person.lastname %></td>
+
+                            <td><%= users[i].email %></td>
+                            <td><%= users[i].person.location %></td>
+                            <% if(users[i].is_admin == 0){ %>
+                            <td>No</td>
+                            <% }else{ %>
+                                <td>Yes</td>
+
+                             <% } %>
+
+                            
+                                <% users[i].sports.forEach(function(sp){ %>
+                                 <td><%= sp.name %></td>
+
+                                <%})%>
+                           
+                            
+                             <td><%= users[i].player.player_skill %></td>
+
+                             <td><%= users[i].person.gender %></td>
+                             <td><%= users[i].person.age %></td>
+
+                             <% if(users[i].is_club == 0){ %>
+                                <td>No</td>
+                                <% }else{ %>
+                                    <td>Yes</td>
+    
+                                 <% } %>
+
+                                 <% if(users[i].is_coach == 0){ %>
+                                    <td>No</td>
+                                    <% }else{ %>
+                                        <td>Yes</td>
+        
+                                     <% } %>
+                                     <% if(users[i].is_player == 0){ %>
+                                        <td>No</td>
+                                        <% }else{ %>
+                                            <td>Yes</td>
+            
+                                         <% } %>
+                                         <td>
+                                             <a href="/delete_user/<%= users[i]._id%>" class="btn btn-danger">Delete</a>
+                                         </td>
+                             
+                            
+                          </tr>
+                          <% } %>
+                   
+                    <% } %>
+                    <% } %>
+              
+              
+            </tbody>
+          </table>
+          </div>
+                </div>
+              </div>
+            </div>
+
+        </center>
+
+      
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Sports</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/add_user" method="post" enctype="multipart/form-data">
+                <input type="email" required  class="form-control" name="email" placeholder="Email">
+                <br>
+                <input type="password" required  class="form-control" name="password" placeholder="Password">
+                <br>
+
+                <select class="form-control" required name="is_admin" aria-label="Default select example">
+                    <option selected>is Admin</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                    
+                  </select>
+               
+                  <br>
+
+                  <select class="form-control" required name="is_player" aria-label="Default select example">
+                      <option selected>is Player</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                      
+                    </select>
+
+
+
+                    <br>
+
+                    <select class="form-control" required name="is_coach" aria-label="Default select example">
+                        <option selected>is Coach</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        
+                      </select>
+
+
+                      <br>
+
+                    <select class="form-control" required name="is_club" aria-label="Default select example">
+                      <option selected>is Club</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                      
+                    </select>
+    
+                    <br>
+
+                <input type="text" required  class="form-control" name="firstname" placeholder="First Name">
+                <br>
+
+                <input type="text" required  class="form-control" name="lastname" placeholder="Last Name">
+
+                <br>
+
+                <input type="number" required  class="form-control" name="age" placeholder="Age">
+                <br>
+                <select class="form-control" required name="gender" aria-label="Default select example">
+                  <option selected>Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  
+                </select>
+
+                <br>
+
+                <input type="text" required  class="form-control" name="location" placeholder="Location">
+                <br>
+                <input type="file" required  class="form-control" name="profile_image" placeholder="Profile Picture">
+
+                <br>
+
+                <select class="form-control" required name="sports_interest" aria-label="Default select example">
+                  <option selected>Sports interest</option>
+                  <% if(sports.length>0){ %>
+                    <% for (var i = 0; i < sports.length; i++) { %>
+                  <option value="<%= sports[i]._id %>"><%= sports[i].name %></option>
+                    
+
+                  <%}%>
+                  <%}%>
+
+                  
+                  
+                </select>
+                <br>
+                <select class="form-control" required name="player_skill" aria-label="Default select example">
+                  <option selected>Player Skill</option>
+                  <option value="male">intermediate</option>
+                  <option value="female">competetive</option>
+                  
+                </select>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="js/demo.js"></script>  
+</body>
+</html>

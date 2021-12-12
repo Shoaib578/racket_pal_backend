@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+ 
+
+  
+    <title>Admin-Home</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <%- include('./header'); %>
+
+        <%- include('./sidebar'); %>
+
+
+        <% if(message.length>0){ %>
+
+   
+            <div class="alert alert-danger " role="alert">
+              <center>
+                <b><%= message %></b> 
+      
+              </center>
+            </div>
+          
+      
+          <% }%>
+            <br>
+            <br>
+
+         
+
+
+          <center>
+            <form action="/account/update_account" method="post">
+
+              <div class="form-group" style="width:50%;">
+                <label for="exampleInputEmail1" class="float-left">Full Name</label>
+                <input type="text" class="form-control" required name="full_name" value="<%= user.person.firstname %>"  placeholder="Enter Full Name">
+              </div>
+
+
+              <div class="form-group" style="width:50%;">
+                <label for="exampleInputEmail1" class="float-left">Email address</label>
+                <input type="email" class="form-control" required name="email" value="<%= user.email %>"  placeholder="Enter email">
+              </div>
+
+
+
+              <div class="form-group" style="width:50%;">
+                <label for="exampleInputPassword1" class="float-left">Password</label>
+                <input  type="password" name="password" required id="password" class="form-control"  placeholder="Password">
+       
+                <br>
+                
+
+
+                <div class="form-group form-check float-left"  >
+                  <input type="checkbox" onclick="appear()" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Show Password</label>
+                
+                  <script>
+                    function appear() {
+                      var x = document.getElementById("password");
+                      if (x.type === "password") {
+                        x.type = "text";
+                      } else {
+                        x.type = "password";
+                      }
+                    }
+                    </script>
+                </div>
+
+
+                <br>
+
+              </div>
+              
+              <br>
+
+
+
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+          </center>
+      </div>
+
+
+
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="js/demo.js"></script>  
+</body>
+</html>
