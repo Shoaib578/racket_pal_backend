@@ -184,19 +184,14 @@
                 <input type="password" required  class="form-control" name="password" placeholder="Password">
                 <br>
 
-                <select class="form-control" required name="is_admin" aria-label="Default select example">
-                    <option selected>is Admin</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    
-                  </select>
-               
-                  <br>
+              
 
-                  <select class="form-control" required name="is_player" aria-label="Default select example">
-                      <option selected>is Player</option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
+                  <select class="form-control" required name="role" aria-label="Default select example">
+                      <option selected>Please select the role</option>
+                      <option value="admin">Admin</option>
+                      <option value="club">Club</option>
+                      <option value="player">Player</option>
+                      <option value="coach">Coach</option>
                       
                     </select>
 
@@ -204,24 +199,9 @@
 
                     <br>
 
-                    <select class="form-control" required name="is_coach" aria-label="Default select example">
-                        <option selected>is Coach</option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
-                        
-                      </select>
+                   
 
 
-                      <br>
-
-                    <select class="form-control" required name="is_club" aria-label="Default select example">
-                      <option selected>is Club</option>
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                      
-                    </select>
-    
-                    <br>
 
                 <input type="text" required  class="form-control" name="firstname" placeholder="First Name">
                 <br>
@@ -263,8 +243,11 @@
                 <br>
                 <select class="form-control" required name="player_skill" aria-label="Default select example">
                   <option selected>Player Skill</option>
-                  <option value="male">intermediate</option>
-                  <option value="female">competetive</option>
+                  <option value="beginner">beginner</option>
+
+                  <option value="intermediate">intermediate</option>
+                  <option value="competetive">competetive</option>
+                  <option value="proffessional">proffessional</option>
                   
                 </select>
 

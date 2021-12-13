@@ -99,6 +99,33 @@ app.post('/add_user',urlencorderParser,(req,res)=>{
     let file;
     let filename;
     let hash_password;
+    let iscoach;
+    let isplayer;
+    let isadmin;
+    let isclub;
+
+
+    if(req.body.role == "player"){
+      isplayer = 1;
+      iscoach = 0;
+      isadmin=0;
+      isclub=0;
+    }else if(req.body.role == "admin"){
+      isplayer = 0;
+      iscoach = 0;
+      isadmin=1;
+      isclub=0;
+    }else if(req.body.role == "club"){
+      isplayer = 0;
+      iscoach = 0;
+      isadmin=0;
+      isclub=1;
+    }else if(req.body.role == "coach"){
+      isplayer = 0;
+      iscoach = 1;
+      isadmin=0;
+      isclub=0;
+    }
 
     bcrypt.hash(req.body.password,saltRounds,(err,hash)=>{
       hash_password = hash
@@ -128,10 +155,10 @@ app.post('/add_user',urlencorderParser,(req,res)=>{
           const user = new Users({
             "email":req.body.email,
             "password":hash_password,
-            "is_player":req.body.is_player,
-            "is_admin":req.body.is_admin,
-            "is_coach":req.body.is_coach,
-            "is_club":req.body.is_club,
+            "is_player":isplayer,
+            "is_admin":isadmin,
+            "is_coach":iscoach,
+            "is_club":isclub,
             "person.firstname":req.body.firstname,
             "person.lastname":req.body.lastname,
             "person.age":req.body.age,
